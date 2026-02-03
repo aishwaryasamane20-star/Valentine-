@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Will You Be My Valentine?</title>
+
   <style>
     body {
       background: linear-gradient(135deg, #ffdde1, #ee9ca7);
@@ -12,6 +13,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
       text-align: center;
       color: #5a1a2c;
     }
@@ -20,8 +22,10 @@
       background: white;
       padding: 30px;
       border-radius: 20px;
-      max-width: 350px;
+      max-width: 360px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -48,13 +52,38 @@
       background: #e63956;
     }
 
+    #noBtn {
+      background: #bbb;
+      position: absolute;
+    }
+
     #message {
       display: none;
       margin-top: 20px;
       font-size: 18px;
     }
+
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      font-size: 20px;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <div class="card">
@@ -62,18 +91,48 @@
     <p>Even miles apart, my heart chooses you.</p>
 
     <button onclick="showLove()">YES 💖</button>
+    <button id="noBtn" onmouseover="moveButton()">No 😜</button>
 
-    <div id="message">
-      <p>Yay!!! 🥰</p>
-      <p>You’re my Valentine today, tomorrow, and always.</p>
-      <p>Love,<br> ❤️ Your Wife</p>
-    </div>
+    <div id="message"></div>
   </div>
 
   <script>
     function showLove() {
-      document.getElementById("message").style.display = "block";
+      const message = document.getElementById("message");
+      message.style.display = "block";
+      message.innerHTML = "";
+      
+      const text = "Yay!!! 🥰<br>You’re my Valentine today, tomorrow, and always.<br><br>Love,<br>❤️ Your Wife";
+      let i = 0;
+
+      const typing = setInterval(() => {
+        message.innerHTML += text.charAt(i);
+        i++;
+        if (i === text.length) clearInterval(typing);
+      }, 50);
     }
+
+    function moveButton() {
+      const btn = document.getElementById("noBtn");
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 500);
   </script>
 
 </body>
