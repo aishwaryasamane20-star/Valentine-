@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Valentine 💗</title>
 
-  <!-- Aesthetic, soft font -->
+  <!-- Soft, aesthetic font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
@@ -84,7 +84,7 @@
       margin-top: 12px;
       font-size: 15px;
       font-weight: 400;
-      color: #ff9bb2; /* soft pink */
+      color: #ff9bb2;
     }
 
     #countdown {
@@ -101,6 +101,7 @@
       position: fixed;
       font-size: 22px;
       animation: blast 3.5s ease-out forwards;
+      pointer-events: none;
     }
 
     @keyframes blast {
@@ -133,7 +134,7 @@
       <p>Love,<br>❤️ Your Wife</p>
     </div>
 
-    <!-- YOUR CHOSEN CAT GIF -->
+    <!-- Cat couple GIF -->
     <img id="cat"
       src="https://i.pinimg.com/originals/0e/a4/a9/0ea4a9ad33776e807fbdfb55979fdfef.gif"
       alt="Cute cat couple">
@@ -150,6 +151,7 @@
 
   <script>
     let catClicks = 0;
+    let confettiStarted = false;
 
     function yesClicked() {
       document.getElementById("music").play();
@@ -157,8 +159,15 @@
       document.getElementById("cat").style.display = "block";
       document.getElementById("countdown").style.display = "block";
 
-      for (let i = 0; i < 45; i++) {
-        createConfetti();
+      // Start continuous confetti only once
+      if (!confettiStarted) {
+        confettiStarted = true;
+
+        setInterval(() => {
+          for (let i = 0; i < 6; i++) {
+            createConfetti();
+          }
+        }, 900);
       }
     }
 
