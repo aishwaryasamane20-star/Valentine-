@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Be My Valentine?</title>
+  <title>My Valentine 💗</title>
+
+  <!-- Soft cute font -->
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       background: linear-gradient(135deg, #fde2e4, #fadadd);
-      font-family: 'Arial', sans-serif;
+      font-family: 'Comic Neue', cursive;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,10 +24,10 @@
     .card {
       background: white;
       padding: 25px;
-      border-radius: 30px;
-      max-width: 380px;
-      width: 90%;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      border-radius: 35px;
+      max-width: 390px;
+      width: 92%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
       text-align: center;
       position: relative;
       z-index: 2;
@@ -32,24 +35,25 @@
 
     img.photo {
       width: 100%;
-      border-radius: 20px;
+      border-radius: 25px;
       margin-bottom: 15px;
     }
 
     h1 {
       font-size: 26px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     p {
       font-size: 16px;
+      margin: 6px 0;
     }
 
     button {
-      background: #ff7aa2;
+      background: #ff9ebb;
       color: white;
       border: none;
-      padding: 12px 22px;
+      padding: 12px 24px;
       margin: 10px;
       border-radius: 999px;
       font-size: 16px;
@@ -57,11 +61,11 @@
     }
 
     button:hover {
-      background: #ff5c8a;
+      background: #ff85a8;
     }
 
     #noBtn {
-      background: #ccc;
+      background: #d9d9d9;
       position: absolute;
     }
 
@@ -73,28 +77,42 @@
 
     #cat {
       display: none;
-      width: 180px;
+      width: 200px;
       margin: 15px auto;
       cursor: pointer;
     }
 
     #secret {
       display: none;
-      margin-top: 10px;
+      margin-top: 12px;
+      font-size: 17px;
+      color: #ff7aa2;
+    }
+
+    #countdown {
+      display: none;
+      margin-top: 14px;
       font-size: 16px;
-      color: #ff4d6d;
+      background: #fff0f5;
+      padding: 10px;
+      border-radius: 18px;
     }
 
     .confetti {
       position: fixed;
-      top: -10px;
-      font-size: 20px;
-      animation: fall 4s linear infinite;
+      font-size: 22px;
+      animation: blast 3.5s ease-out forwards;
     }
 
-    @keyframes fall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
+    @keyframes blast {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(0.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -104,11 +122,11 @@
   <audio id="music" src="music.mp3"></audio>
 
   <div class="card">
-    <!-- MAIN PHOTO -->
+    <!-- YOUR PHOTO -->
     <img src="photo1.jpg" class="photo" alt="Our photo">
 
-    <h1>Will you be my Valentine? 💗</h1>
-    <p>Every love story is special, but ours is my favorite.</p>
+    <h1>Will you be my Valentine? 💕</h1>
+    <p>No matter the distance, my heart is always with you.</p>
 
     <button onclick="yesClicked()">YES 💖</button>
     <button id="noBtn" onmouseover="moveNo()">No 😜</button>
@@ -119,11 +137,19 @@
       <p>Love,<br>❤️ Your Wife</p>
     </div>
 
-    <!-- CAT GIF -->
-    <img id="cat" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3J2ZWc5Z2p2d2V4a3FhM2d2YTR1eGl3c3Zxb2h6eHR2NnNtdCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MDJ9IbxxvDUQM/giphy.gif">
+    <!-- CAT COUPLE GIF (no upload needed) -->
+    <img id="cat" 
+      src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FhYzVvZXZkb2Z2dnh1Z2t4cWRvdHh3OWxqZ3N2aW1kN2Z5bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l4FGpP4lxGGgK5CBW/giphy.gif"
+      alt="Cute cat couple">
 
     <!-- SECRET MESSAGE -->
-    <div id="secret">💌 You are my safest place, my forever, my home.</div>
+    <div id="secret">💌 You are my favorite hello and my hardest goodbye.</div>
+
+    <!-- COUNTDOWN -->
+    <div id="countdown">
+      ⏳ Until we meet again:<br>
+      <strong><span id="timer"></span></strong>
+    </div>
   </div>
 
   <script>
@@ -133,8 +159,9 @@
       document.getElementById("music").play();
       document.getElementById("message").style.display = "block";
       document.getElementById("cat").style.display = "block";
+      document.getElementById("countdown").style.display = "block";
 
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 45; i++) {
         createConfetti();
       }
     }
@@ -149,10 +176,24 @@
       const c = document.createElement("div");
       c.className = "confetti";
       c.innerText = "💖";
-      c.style.left = Math.random() * 100 + "vw";
-      c.style.animationDuration = (2 + Math.random() * 3) + "s";
+
+      const side = Math.random();
+      if (side < 0.33) {
+        c.style.left = "0";
+        c.style.top = Math.random() * 100 + "vh";
+      } else if (side < 0.66) {
+        c.style.left = "100vw";
+        c.style.top = Math.random() * 100 + "vh";
+      } else {
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "100vh";
+      }
+
+      c.style.setProperty("--x", (Math.random()*300-150) + "px");
+      c.style.setProperty("--y", (Math.random()*-300-100) + "px");
+
       document.body.appendChild(c);
-      setTimeout(() => c.remove(), 5000);
+      setTimeout(() => c.remove(), 4000);
     }
 
     document.getElementById("cat").onclick = function () {
@@ -161,6 +202,27 @@
         document.getElementById("secret").style.display = "block";
       }
     };
+
+    /* COUNTDOWN TIMER */
+    const targetDate = new Date("March 30, 2026 00:00:00").getTime();
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        document.getElementById("timer").innerHTML = "We’re together again 💞";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("timer").innerHTML =
+        `${days} days ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
   </script>
 
 </body>
