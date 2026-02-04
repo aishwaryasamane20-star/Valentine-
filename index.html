@@ -2,34 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Will You Be My Valentine?</title>
 
   <style>
     body {
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      background: linear-gradient(135deg, #fde2e4, #fadadd);
       font-family: 'Arial', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
-      overflow: hidden;
-      text-align: center;
-      color: #5a1a2c;
+      overflow-x: hidden;
+      color: #6b2d3e;
     }
 
     .card {
       background: white;
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 360px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      padding: 25px;
+      border-radius: 30px;
+      max-width: 380px;
+      width: 90%;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      text-align: center;
       position: relative;
       z-index: 2;
     }
 
+    img.photo {
+      width: 100%;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
     h1 {
-      font-size: 28px;
+      font-size: 26px;
       margin-bottom: 10px;
     }
 
@@ -38,101 +46,121 @@
     }
 
     button {
-      background: #ff6f91;
+      background: #ff7aa2;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 12px 22px;
       margin: 10px;
-      border-radius: 25px;
+      border-radius: 999px;
       font-size: 16px;
       cursor: pointer;
     }
 
     button:hover {
-      background: #e63956;
+      background: #ff5c8a;
     }
 
     #noBtn {
-      background: #bbb;
+      background: #ccc;
       position: absolute;
     }
 
     #message {
       display: none;
-      margin-top: 20px;
+      margin-top: 15px;
       font-size: 18px;
     }
 
-    .heart {
-      position: fixed;
-      bottom: -10px;
-      font-size: 20px;
-      animation: floatUp 5s linear infinite;
-      opacity: 0.8;
+    #cat {
+      display: none;
+      width: 180px;
+      margin: 15px auto;
+      cursor: pointer;
     }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+    #secret {
+      display: none;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #ff4d6d;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -10px;
+      font-size: 20px;
+      animation: fall 4s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
     }
   </style>
 </head>
 
 <body>
 
+  <audio id="music" src="music.mp3"></audio>
+
   <div class="card">
-    <h1>Will you be my Valentine? ❤️</h1>
-    <p>Even miles apart, my heart chooses you.</p>
+    <!-- MAIN PHOTO -->
+    <img src="photo1.jpg" class="photo" alt="Our photo">
 
-    <button onclick="showLove()">YES❣️</button>
-    <button id="noBtn" onmouseover="moveButton()">No🥺</button>
+    <h1>Will you be my Valentine? 💗</h1>
+    <p>Every love story is special, but ours is my favorite.</p>
 
-    <div id="message"></div>
+    <button onclick="yesClicked()">YES 💖</button>
+    <button id="noBtn" onmouseover="moveNo()">No 😜</button>
+
+    <div id="message">
+      <p>Yay!!! 🥰</p>
+      <p>You’re my Valentine today, tomorrow, and always.</p>
+      <p>Love,<br>❤️ Your Wife</p>
+    </div>
+
+    <!-- CAT GIF -->
+    <img id="cat" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3J2ZWc5Z2p2d2V4a3FhM2d2YTR1eGl3c3Zxb2h6eHR2NnNtdCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MDJ9IbxxvDUQM/giphy.gif">
+
+    <!-- SECRET MESSAGE -->
+    <div id="secret">💌 You are my safest place, my forever, my home.</div>
   </div>
 
   <script>
-    function showLove() {
-      const message = document.getElementById("message");
-      message.style.display = "block";
-      message.innerHTML = "";
-      
-      const text = "Yayy!!! 🥰<br>You’re my Valentine today, tomorrow, and always.<br><br>Love,<br>❤️ Your Wife";
-      let i = 0;
+    let catClicks = 0;
 
-      const typing = setInterval(() => {
-        message.innerHTML += text.charAt(i);
-        i++;
-        if (i === text.length) clearInterval(typing);
-      }, 50);
+    function yesClicked() {
+      document.getElementById("music").play();
+      document.getElementById("message").style.display = "block";
+      document.getElementById("cat").style.display = "block";
+
+      for (let i = 0; i < 30; i++) {
+        createConfetti();
+      }
     }
 
-    function moveButton() {
+    function moveNo() {
       const btn = document.getElementById("noBtn");
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
+      btn.style.transform =
+        `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
     }
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
+    function createConfetti() {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.innerText = "💖";
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
     }
 
-    setInterval(createHeart, 500);
+    document.getElementById("cat").onclick = function () {
+      catClicks++;
+      if (catClicks === 3) {
+        document.getElementById("secret").style.display = "block";
+      }
+    };
   </script>
 
 </body>
