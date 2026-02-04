@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Valentine 💗</title>
 
-  <!-- Soft cute font -->
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Aesthetic, soft font (not childish) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     body {
       background: linear-gradient(135deg, #fde2e4, #fadadd);
-      font-family: 'Comic Neue', cursive;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,29 +23,25 @@
 
     .card {
       background: white;
-      padding: 25px;
-      border-radius: 35px;
+      padding: 30px 25px;
+      border-radius: 36px;
       max-width: 390px;
       width: 92%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.12);
       text-align: center;
       position: relative;
       z-index: 2;
     }
 
-    img.photo {
-      width: 100%;
-      border-radius: 25px;
-      margin-bottom: 15px;
-    }
-
     h1 {
       font-size: 26px;
-      margin-bottom: 8px;
+      font-weight: 500;
+      margin-bottom: 10px;
     }
 
     p {
-      font-size: 16px;
+      font-size: 15.5px;
+      font-weight: 300;
       margin: 6px 0;
     }
 
@@ -53,10 +49,11 @@
       background: #ff9ebb;
       color: white;
       border: none;
-      padding: 12px 24px;
-      margin: 10px;
+      padding: 12px 26px;
+      margin: 12px 8px;
       border-radius: 999px;
-      font-size: 16px;
+      font-size: 15.5px;
+      font-weight: 400;
       cursor: pointer;
     }
 
@@ -65,37 +62,39 @@
     }
 
     #noBtn {
-      background: #d9d9d9;
+      background: #e0e0e0;
       position: absolute;
     }
 
     #message {
       display: none;
-      margin-top: 15px;
-      font-size: 18px;
+      margin-top: 16px;
+      font-size: 17px;
     }
 
     #cat {
       display: none;
       width: 200px;
-      margin: 15px auto;
+      margin: 18px auto;
       cursor: pointer;
     }
 
     #secret {
       display: none;
       margin-top: 12px;
-      font-size: 17px;
-      color: #ff7aa2;
+      font-size: 15px;
+      font-weight: 400;
+      color: #ff9bb2; /* softer, lighter pink */
     }
 
     #countdown {
       display: none;
-      margin-top: 14px;
-      font-size: 16px;
-      background: #fff0f5;
-      padding: 10px;
+      margin-top: 16px;
+      font-size: 14.5px;
+      background: #fff2f6;
+      padding: 12px;
       border-radius: 18px;
+      font-weight: 300;
     }
 
     .confetti {
@@ -122,9 +121,6 @@
   <audio id="music" src="music.mp3"></audio>
 
   <div class="card">
-    <!-- YOUR PHOTO -->
-    <img src="photo1.jpg" class="photo" alt="Our photo">
-
     <h1>Will you be my Valentine? 💕</h1>
     <p>No matter the distance, my heart is always with you.</p>
 
@@ -132,20 +128,20 @@
     <button id="noBtn" onmouseover="moveNo()">No 😜</button>
 
     <div id="message">
-      <p>Yay!!! 🥰</p>
+      <p>Yay 🥰</p>
       <p>You’re my Valentine today, tomorrow, and always.</p>
       <p>Love,<br>❤️ Your Wife</p>
     </div>
 
-    <!-- CAT COUPLE GIF (no upload needed) -->
-    <img id="cat" 
+    <!-- Cute cat couple GIF -->
+    <img id="cat"
       src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FhYzVvZXZkb2Z2dnh1Z2t4cWRvdHh3OWxqZ3N2aW1kN2Z5bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l4FGpP4lxGGgK5CBW/giphy.gif"
       alt="Cute cat couple">
 
-    <!-- SECRET MESSAGE -->
-    <div id="secret">💌 You are my favorite hello and my hardest goodbye.</div>
+    <!-- Secret message -->
+    <div id="secret">💌 You are my calm, my safe place, my forever.</div>
 
-    <!-- COUNTDOWN -->
+    <!-- Countdown -->
     <div id="countdown">
       ⏳ Until we meet again:<br>
       <strong><span id="timer"></span></strong>
@@ -203,7 +199,7 @@
       }
     };
 
-    /* COUNTDOWN TIMER */
+    /* Countdown to 30 March 2026 */
     const targetDate = new Date("March 30, 2026 00:00:00").getTime();
 
     setInterval(() => {
